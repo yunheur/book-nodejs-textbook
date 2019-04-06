@@ -4,7 +4,8 @@
   "description": "익스프레스로 만드는 SNS 서비스",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app"
+    "start": "nodemon app",
+    "debug": "nodemon --inspect app"
   },
   "author": "yunheur",
   "license": "MIT",
