@@ -4,12 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src",
-    "start:dev": "nodemon --watch src/ src/index.js"
+    "start": "cross-env NODE_PATH=src node src",
+    "start:dev": "cross-env NODE_PATH=src nodemon --watch --inspect src/ src/index.js"
   },
   "dependencies": {
+    "cross-env": "^5.2.0",
+    "dotenv": "^8.0.0",
+    "joi": "^14.3.1",
     "koa": "^2.7.0",
-    "koa-router": "^7.4.0"
+    "koa-bodyparser": "^4.2.1",
+    "koa-router": "^7.4.0",
+    "mongoose": "^5.5.8"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
