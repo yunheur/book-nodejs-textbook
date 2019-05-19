@@ -121,3 +121,15 @@ exports.logout = async (ctx) => {
   });
   ctx.status = 204;
 };
+
+// 쿠키에 access_token 이 있다면, 현재 로그인된 유저의 정보를 응답
+exports.check = (ctx) => {
+  const { user } = ctx.request;
+
+  if(!user) {
+    ctx.status = 403; // Forbidden
+    return;
+  }
+
+  ctx.body = user.profile;
+};
