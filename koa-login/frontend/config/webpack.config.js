@@ -140,7 +140,8 @@ module.exports = function(webpackEnv) {
       // require.resolve('webpack-dev-server/client') + '?/',
       // require.resolve('webpack/hot/dev-server'),
       isEnvDevelopment &&
-        require.resolve('react-dev-utils/webpackHotDevClient'),
+        require.resolve('react-dev-utils/webpackHotDevClient')
+        && 'react-hot-loader/patch',
       // Finally, this is your app's code:
       paths.appIndexJs,
       // We include the app code last so that if there is a runtime error during
@@ -352,6 +353,7 @@ module.exports = function(webpackEnv) {
                         },
                       },
                     },
+                    'react-hot-loader/babel'
                   ],
                 ],
                 // This is a feature of `babel-loader` for webpack (not Babel itself).
