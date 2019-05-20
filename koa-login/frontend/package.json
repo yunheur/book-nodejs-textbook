@@ -7,6 +7,7 @@
     "@svgr/webpack": "4.1.0",
     "@typescript-eslint/eslint-plugin": "1.6.0",
     "@typescript-eslint/parser": "1.6.0",
+    "axios": "^0.18.0",
     "babel-eslint": "10.0.1",
     "babel-jest": "^24.8.0",
     "babel-loader": "8.0.5",
@@ -52,6 +53,7 @@
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
     "redux-actions": "^2.6.5",
+    "redux-pender": "^2.0.12",
     "resolve": "1.10.0",
     "sass-loader": "7.1.0",
     "semver": "6.0.0",
@@ -137,5 +139,6 @@
   },
   "devDependencies": {
     "react-hot-loader": "^4.5.3"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }
