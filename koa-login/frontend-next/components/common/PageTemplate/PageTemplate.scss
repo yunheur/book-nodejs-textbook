@@ -1,0 +1,6 @@
+.page-template {
+  @include media("<boundary") {
+    margin-top: $header-height * 2; 
+  }
+  margin-top: $header-height;
+}

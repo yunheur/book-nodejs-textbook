@@ -1,0 +1,12 @@
+.header {
+  @include media("<boundary") {
+    height: $header-height * 2;
+    background-color: $oc-blue-1;
+  }
+
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: $header-height;
+  background-color: $oc-pink-1;
+}
