@@ -5,8 +5,6 @@ import * as userActions from 'redux/modules/user';
 import { bindActionCreators } from 'redux';
 import storage from 'lib/storage';
 
-
-
 class HeaderContainer extends Component {
 
     handleLogout = async () => {

@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import React, { Component } from 'react';
+import HeaderContainer from '../../../containers/common/HeaderContainer';
 import Footer from '../Footer';
-import Header from '../Header';
 import styles from './PageTemplate.scss';
 
 const cx = classNames.bind(styles);
@@ -15,17 +15,12 @@ interface IState {
 }
 
 class PageTemplate extends Component<IProps, IState> {
-  public state = {
-    isLogined: true,
-  };
-
   public render() {
     const { children } = this.props;
-    const { isLogined } = this.state;
 
     return (
-      <div className={cx('page-template', { isLogined })}>
-        <Header isLogined={isLogined} />
+      <div className={cx('page-template')}>
+        <HeaderContainer />
         {children}
         <Footer />
       </div>
