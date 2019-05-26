@@ -1,12 +1,14 @@
-import { useStaticRendering } from 'mobx-react';
 import RootStore from './modules';
 
 const isServer = !process.browser;
-useStaticRendering(isServer);
+let store: RootStore | null = null;
 
-const createStore = (store = null) => {
-  if (isServer || !store) {
+const createStore = () => {
+  if (isServer) {
     return new RootStore();
+  }
+  if (store === null) {
+    store = new RootStore();
   }
   return store;
 };

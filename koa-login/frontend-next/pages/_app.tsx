@@ -21,7 +21,7 @@ class YoloBookApp extends App {
 
   constructor(props: any) {
     super(props);
-    this.mobxStore = createStore(this.mobxStore);
+    this.mobxStore = createStore();
   }
 
   public render() {
