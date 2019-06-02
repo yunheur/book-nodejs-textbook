@@ -1,4 +1,4 @@
-import { action, observable } from 'mobx';
+import { action, observable, runInAction } from 'mobx';
 import * as AuthAPI from '../../lib/api/auth';
 
 class AuthStore {
@@ -6,19 +6,20 @@ class AuthStore {
   @observable public login: any;
   @observable public results: any;
 
-  private root: any;
-
-  constructor(root: any) {
-    this.root = root;
-    this.register = this.getInitRegisterData();
-    this.login = this.getInitLoginData();
-    this.results = {};
+  constructor(initialData = {}) {
+    // console.log('AuthStore ------------------');
+    // console.log(initialData);
+    // console.log('----------------------------');
+    const { register, login, results } = initialData;
+    this.register = !!register ? register : this.getInitRegisterData();
+    this.login = !!login ? login : this.getInitLoginData();
+    this.results = !!results ? results : {};
   }
 
   @action
   public changeInput = (data: { form: string; name: string; value: string; }) => {
     const { form, name, value } = data;
-    this[form][name] = value;
+    this[form]['form'][name] = value;
   }
 
   @action
@@ -34,18 +35,24 @@ class AuthStore {
   @action
   public checkEmailExists = async (email: string) => {
     try {
-      const { exists } = await AuthAPI.checkEmailExists(email);
-      this.register.exists.email = exists;
+      const { data: { exists } } = await AuthAPI.checkEmailExists(email);
+      runInAction(() => {
+        this.register.exists.email = exists;
+      });
     } catch (error) {
+      throw error;
     }
   }
 
   @action
   public checkUsernameExists = async (username: string) => {
     try {
-      const { exists } = await AuthAPI.checkUsernameExists(username);
-      this.register.exists.username = exists;
+      const { data: { exists } } = await AuthAPI.checkUsernameExists(username);
+      runInAction(() => {
+        this.register.exists.username = exists;
+      });
     } catch (error) {
+      throw error;
     }
   }
 
@@ -53,23 +60,28 @@ class AuthStore {
   public localRegister = async (data: { email: string; username: string; password: string; }) => {
     try {
       const res = await AuthAPI.localRegister(data);
-      this.results = res;
+      runInAction(() => {
+        this.results = res.data;
+      });
     } catch (error) {
+      throw error;
     }
   }
 
   @action
-  public localLogin = async (data: { email: any; password: any; }) => {
+  public localLogin = async (data: { email: string; password: string; }) => {
     try {
       const res = await AuthAPI.localLogin(data);
-      this.results = res;
-    } catch (error) { }
+      runInAction(() => {
+        this.results = res.data;
+      });
+    } catch (error) {
+      throw error;
+    }
   }
 
   @action
-  public logout = async () => {
-    await AuthAPI.logout();
-  }
+  public logout = async () => await AuthAPI.logout();
 
   @action
   public setError = (data: { form: string; message: string; }) => {

@@ -1,0 +1,12 @@
+.right-aligned-link {
+  margin-top: 1rem;
+  text-align: right;
+  .link {
+    color: $oc-gray-6;
+    text-decoration: underline;
+    cursor:pointer;
+    &:hover {
+      color: $oc-gray-7;
+    }
+  }
+}

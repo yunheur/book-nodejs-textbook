@@ -1,6 +1,7 @@
 // 전역으로 사용하는 스타일 폰트 설정
 @import '~normalize.css';
 @import url('//fonts.googleapis.com/earlyaccess/notosanskr.css');
+@import url('https://fonts.googleapis.com/css?family=Rajdhani:700');
 
 body {
   margin: 0;
@@ -32,4 +33,8 @@ input {
 
 button {
   border: none;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }

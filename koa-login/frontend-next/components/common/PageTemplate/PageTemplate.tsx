@@ -1,7 +1,6 @@
 import classNames from 'classnames/bind';
 import React, { Component } from 'react';
 import HeaderContainer from '../../../containers/common/HeaderContainer';
-import Footer from '../Footer';
 import styles from './PageTemplate.scss';
 
 const cx = classNames.bind(styles);
@@ -22,7 +21,6 @@ class PageTemplate extends Component<IProps, IState> {
       <div className={cx('page-template')}>
         <HeaderContainer />
         {children}
-        <Footer />
       </div>
     );
   }

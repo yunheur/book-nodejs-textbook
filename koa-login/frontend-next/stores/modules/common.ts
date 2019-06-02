@@ -4,11 +4,12 @@ class CommonStore {
   @observable
   public header: any;
 
-  private root: any;
-
-  constructor(root: any) {
-    this.root = root;
-    this.header = {
+  constructor(initialData = {}) {
+    // console.log('AuthStore ------------------');
+    // console.log(CommonStore);
+    // console.log('----------------------------');
+    const { header } = initialData;
+    this.header = !!header ? header : {
       visible: true
     };
   }

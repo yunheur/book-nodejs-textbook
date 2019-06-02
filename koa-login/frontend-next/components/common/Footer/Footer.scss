@@ -1,6 +1,0 @@
-.footer {
-  @include media("<boundary") {
-    background-color: $oc-blue-1;
-  }
-  background-color: $oc-pink-1;
-}

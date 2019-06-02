@@ -5,18 +5,24 @@ import styles from './Header.scss';
 
 const cx = classNames.bind(styles);
 
-interface IProps {}
+interface IProps {
+  children: any;
+}
 
 const Header = (props: IProps) => {
+  const { children } = props;
   return (
     <div className={cx('header')}>
-      <Link href="/">
-        <a>Home</a>
-      </Link>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-      <IoIosMenu />
+      <div className={cx('white-background')}>
+        <div className={cx('contents')}>
+          <div className={cx('logo')}>
+            YUNHEUR
+          </div>
+          <div className={cx('spacer')} />
+          {children}
+        </div>
+      </div>
+      <div className={cx('gradient-border')} />
     </div>
   );
 };

@@ -7,10 +7,10 @@ class RootStore {
   public auth: CommonStore;
   public user: UserStore;
 
-  constructor() {
-    this.common = new CommonStore(this);
-    this.auth = new AuthStore(this);
-    this.user = new UserStore(this);
+  constructor(initialData = {}) {
+    this.common = new CommonStore(initialData.common);
+    this.auth = new AuthStore(initialData.auth);
+    this.user = new UserStore(initialData.user);
   }
 }
 
