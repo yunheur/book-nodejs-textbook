@@ -1,0 +1,46 @@
+.header {  
+  @include material-shadow(1);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+
+  .white-background {
+    background: white;
+    display: flex;
+    justify-content: center;
+    height: auto;
+  }
+
+  .contents {
+    @include media("<boundary") {
+      width: 100%;
+    }
+
+    width: 1200px;
+    height: 55px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    color: $oc-teal-7;
+    font-family: 'Rajdhani';
+  }
+
+  .spacer {
+    flex-grow: 1;
+  }
+
+  .gradient-border {
+    height: 3px;
+    background: linear-gradient(to right, $oc-teal-6, $oc-cyan-5);
+  }
+}
