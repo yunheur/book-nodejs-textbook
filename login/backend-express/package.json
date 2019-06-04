@@ -5,11 +5,11 @@
   "main": "app.js",
   "scripts": {
     "build": "tsc",
-    "start": "cd dist && cross-env NODE_ENV=production pm2 start app.js -i 0",
+    "start": "cross-env NODE_ENV=production pm2 start dist/app.js -i 0",
     "stop": "pm2 kill",
     "restart": "npm run stop & npm start",
-    "dev": "cd src && nodemon --exec ts-node app.ts",
-    "dev:debug": "cd src && node --inspect -r ts-node/register app.ts",
+    "dev": "nodemon --exec ts-node src/app.ts",
+    "dev:debug": "node --inspect -r ts-node/register src/app.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
