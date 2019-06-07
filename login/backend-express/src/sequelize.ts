@@ -1,6 +1,6 @@
 import { Op } from 'sequelize';
 import { Sequelize } from 'sequelize-typescript';
-import { config } from '../config';
+import { config } from './config';
 
 const env = process.env.NODE_ENV || 'development';
 

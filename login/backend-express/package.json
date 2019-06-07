@@ -4,12 +4,13 @@
   "description": "express backend server",
   "main": "app.js",
   "scripts": {
-    "build": "tsc",
+    "build": "npm run clean & tsc",
     "start": "cross-env NODE_ENV=production pm2 start dist/app.js -i 0",
     "stop": "pm2 kill",
     "restart": "npm run stop & npm start",
     "dev": "nodemon --exec ts-node src/app.ts",
     "dev:debug": "node --inspect -r ts-node/register src/app.ts",
+    "clean": "rimraf dist",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -34,8 +35,10 @@
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
+    "rimraf": "^2.6.3",
     "sequelize": "^5.8.7",
-    "sequelize-typescript": "^1.0.0-alpha.9"
+    "sequelize-typescript": "^1.0.0-alpha.9",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/bluebird": "^3.5.27",
@@ -44,6 +47,7 @@
     "@types/morgan": "^1.7.35",
     "@types/node": "^12.0.4",
     "@types/validator": "^10.11.0",
+    "@types/winston": "^2.4.4",
     "cross-env": "^5.2.0",
     "nodemon": "^1.19.1",
     "pm2": "^3.5.1",

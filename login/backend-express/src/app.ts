@@ -2,6 +2,7 @@ require('dotenv').config(); // .env 파일에서 환경변수 불러오기
 
 import express, { Express } from 'express';
 import morgan = require('morgan');
+import logger from './logger';
 import routes from './routes';
 import { sequelize } from './sequelize';
 
@@ -35,6 +36,31 @@ class App {
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
     this.app.use('/api', routes);
+    this.app.use(
+      (
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+      ) => {
+        const err: any = new Error('Not Found');
+        err.status = 404;
+        logger.info('hello');
+        logger.error(err.message);
+        next(err);
+      }
+    );
+    this.app.use(
+      (
+        err: any,
+        req: express.Request,
+        res: express.Response,
+        next: express.NextFunction
+      ) => {
+        res.locals.message = err.message;
+        res.locals.error = req.app.get('env') === 'development' ? err : {};
+        res.sendStatus(err.status || 500);
+      }
+    );
   };
 }
 
