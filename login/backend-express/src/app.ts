@@ -1,6 +1,8 @@
 require('dotenv').config(); // .env 파일에서 환경변수 불러오기
 
 import express, { Express } from 'express';
+import helmet from 'helmet';
+import hpp from 'hpp';
 import morgan = require('morgan');
 import logger from './logger';
 import routes from './routes';
@@ -30,6 +32,8 @@ class App {
   private middlewares = (): void => {
     if (process.env.NODE_ENV === 'production') {
       this.app.use(morgan('combined'));
+      this.app.use(helmet());
+      this.app.use(hpp());
     } else {
       this.app.use(morgan('dev'));
     }
