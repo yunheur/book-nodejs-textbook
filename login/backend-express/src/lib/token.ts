@@ -17,22 +17,6 @@ export const generateToken = async (payload: any) => {
   }
 };
 
-// function generateToken(payload) {
-//   return new Promise((resolve, reject) => {
-//     jwt.sign(
-//       payload,
-//       jwtSecret,
-//       {
-//         expiresIn: '7d',
-//       },
-//       (error, token) => {
-//         if (error) reject(error);
-//         resolve(token);
-//       }
-//     );
-//   });
-// }
-
 // const decodeToken = async (token: string) => {
 //   try {
 //     return jwt.verify(token, jwtSecret);

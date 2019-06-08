@@ -68,7 +68,6 @@ class AuthController {
       res.sendStatus(500);
     }
 
-    // 여기만 하면 됨 (수정 ㄲ)
     res.cookie('access_token', token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 7,
