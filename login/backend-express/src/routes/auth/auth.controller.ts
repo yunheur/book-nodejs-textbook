@@ -90,7 +90,29 @@ class AuthController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    res.send('exists');
+    const { key, value } = req.params;
+    let account = null;
+
+    try {
+      // key 에 따라 findByEmail 혹은 findByUsername 을 실행합니다.
+      account = await (key === 'email'
+        ? Account.findOne({
+            where: {
+              email: value,
+            },
+          })
+        : Account.findOne({
+            where: {
+              username: value,
+            },
+          }));
+    } catch (e) {
+      res.sendStatus(400);
+    }
+
+    res.json({
+      exists: account !== null,
+    });
   };
 
   // 로그아웃
