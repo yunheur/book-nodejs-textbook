@@ -25,7 +25,8 @@ class AuthController {
         .min(6),
     });
 
-    const result = Joi.validate(req.body, schema);
+    const { username, email, password } = req.body;
+    const result = Joi.validate({ username, email, password }, schema);
     if (result.error) {
       res.sendStatus(400);
       return;
@@ -81,7 +82,52 @@ class AuthController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    res.send('login');
+    // 데이터 검증
+    const schema = Joi.object().keys({
+      email: Joi.string()
+        .email()
+        .required(),
+      password: Joi.string().required(),
+    });
+
+    const { email, password } = req.body;
+    const result = Joi.validate({ email, password }, schema);
+
+    if (result.error) {
+      res.sendStatus(400); // Bad Request
+      return;
+    }
+
+    let account = null;
+    try {
+      // 이메일로 계정 찾기
+      account = await Account.findOne({
+        where: {
+          email: email,
+        },
+      });
+    } catch (error) {
+      return next(error);
+    }
+
+    if (!account || !account.validatePassword(password)) {
+      // 유저가 존재하지 않거나 || 비밀번호가 일치하지 않으면
+      res.sendStatus(403); // Forbidden
+      return;
+    }
+
+    let token = null;
+    try {
+      token = await account.generateToken();
+    } catch (error) {
+      return next(error);
+    }
+
+    res.cookie('access_token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 7,
+    });
+    res.json(account.profile); // 프로필 정보로 응답합니다.
   };
 
   // 이메일 / 아이디 존재유무 확인
