@@ -1,9 +1,11 @@
 require('dotenv').config(); // .env 파일에서 환경변수 불러오기
 
+import cookieParser from 'cookie-parser';
 import express, { Express } from 'express';
 import helmet from 'helmet';
 import hpp from 'hpp';
 import morgan = require('morgan');
+import { jwtMiddleware } from './lib/token';
 import logger from './logger';
 import routes from './routes';
 import { sequelize } from './sequelize';
@@ -21,7 +23,7 @@ class App {
     await sequelize.sync({ force: true });
 
     this.app.listen(this.app.get('port'), () => {
-      logger.info(this.app.get('port'), '번 포트에서 대기중');
+      logger.info(`${this.app.get('port')}번 포트에서 대기중`);
     });
   };
 
@@ -39,6 +41,8 @@ class App {
     }
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
+    this.app.use(cookieParser());
+    this.app.use(jwtMiddleware);
     this.app.use('/api', routes);
     this.app.use(
       (

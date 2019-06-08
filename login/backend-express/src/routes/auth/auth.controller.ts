@@ -121,7 +121,11 @@ class AuthController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    res.send('logout');
+    res.cookie('access_token', null, {
+      httpOnly: true,
+      maxAge: 0,
+    });
+    res.sendStatus(204);
   };
 
   // 쿠키에 access_token 이 있다면, 현재 로그인된 유저의 정보를 응답
@@ -130,7 +134,14 @@ class AuthController {
     res: express.Response,
     next: express.NextFunction
   ) => {
-    res.send('check');
+    const { user } = req.body;
+
+    if (!user) {
+      res.sendStatus(403); // Forbidden
+      return;
+    }
+
+    res.json(user.profile);
   };
 }
 
